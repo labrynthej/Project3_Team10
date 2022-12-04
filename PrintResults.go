@@ -205,3 +205,26 @@ func printSimulation(sim Instruction, f *os.File) {
 	fmt.Fprintf(f, "\n")
 
 }
+
+func printPipeline(sim []Instruction, file string) {
+	f, fileErr := os.Create(file)
+	if fileErr != nil {
+		fmt.Println(fileErr)
+	}
+
+	fmt.Fprintln(f, "--------------------")
+	fmt.Fprintln(f, "Cycle:")
+
+	fmt.Fprintln(f, "\nPre-Issue Buffer:")
+	fmt.Fprintf(f, "\tEntry 0:\t%s\n", instructionString(sim[0]))
+	fmt.Fprintf(f, "\tEntry 1:\n")
+	fmt.Fprintf(f, "\tEntry 2:\n")
+	fmt.Fprintf(f, "\tEntry 3:\n")
+
+	// print current register
+	fmt.Fprint(f, "\nRegisters:\n")
+	fmt.Fprintf(f, "r00:\t%s", mapToString(registerMap, 8))
+	fmt.Fprintf(f, "\nr08:\t%s", mapToString(registerMap, 16))
+	fmt.Fprintf(f, "\nr16:\t%s", mapToString(registerMap, 24))
+	fmt.Fprintf(f, "\nr24:\t%s\n", mapToString(registerMap, 32))
+}

@@ -67,6 +67,7 @@ func main() {
 
 	// begin pipeline simulation
 	runSim(instructionsArray)
+	printPipeline(instructionsArray, *cmdOutFile+"_test.txt")
 
 	fmt.Println("infile:", *cmdInFile)
 	fmt.Println("outfile: ", *cmdOutFile+"_dis.txt")
