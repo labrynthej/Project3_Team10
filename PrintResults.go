@@ -206,34 +206,34 @@ func printSimulation(sim Instruction, f *os.File) {
 
 }
 
-func printPipeline(sim []Instruction, file string) {
-	f, fileErr := os.Create(file)
-	if fileErr != nil {
-		fmt.Println(fileErr)
-	}
+func printPipeline(sim []Instruction, f *os.File) {
+	//f, fileErr := os.Create(file)
+	//if fileErr != nil {
+	//	fmt.Println(fileErr)
+	//}
 
 	fmt.Fprintln(f, "--------------------")
 	fmt.Fprintln(f, "Cycle:")
 
 	fmt.Fprintln(f, "\nPre-Issue Buffer:")
-	fmt.Fprintf(f, "\tEntry 0:\t%s\n", fetchStr(PreIssueBuff[0]))
-	fmt.Fprintf(f, "\tEntry 1:\t%s\n", fetchStr(PreIssueBuff[1]))
-	fmt.Fprintf(f, "\tEntry 2:\t%s\n", fetchStr(PreIssueBuff[2]))
-	fmt.Fprintf(f, "\tEntry 3:\t%s", fetchStr(PreIssueBuff[3]))
+	fmt.Fprintf(f, "\tEntry 0:\t%s\n", fetchStr(sim, PreIssueBuff[0]))
+	fmt.Fprintf(f, "\tEntry 1:\t%s\n", fetchStr(sim, PreIssueBuff[1]))
+	fmt.Fprintf(f, "\tEntry 2:\t%s\n", fetchStr(sim, PreIssueBuff[2]))
+	fmt.Fprintf(f, "\tEntry 3:\t%s", fetchStr(sim, PreIssueBuff[3]))
 
 	fmt.Fprintln(f, "\nPre-ALU Queue:")
-	fmt.Fprintf(f, "\tEntry 0:\t%s\n", fetchStr(PreALUBuff[0]))
-	fmt.Fprintf(f, "\tEntry 1:\t%s", fetchStr(PreALUBuff[1]))
+	fmt.Fprintf(f, "\tEntry 0:\t%s\n", fetchStr(sim, PreALUBuff[0]))
+	fmt.Fprintf(f, "\tEntry 1:\t%s", fetchStr(sim, PreALUBuff[1]))
 
 	fmt.Fprintln(f, "\nPost-ALU Queue:")
-	fmt.Fprintf(f, "\tEntry 0:\t%s", fetchStr(postALUBuff[1]))
+	fmt.Fprintf(f, "\tEntry 0:\t%s", fetchStr(sim, postALUBuff[1]))
 
 	fmt.Fprintln(f, "\nPre-MEM Queue:")
-	fmt.Fprintf(f, "\tEntry 0:\t%s\n", fetchStr(PreMemBuff[0]))
-	fmt.Fprintf(f, "\tEntry 1:\t%s", fetchStr(PreMemBuff[1]))
+	fmt.Fprintf(f, "\tEntry 0:\t%s\n", fetchStr(sim, PreMemBuff[0]))
+	fmt.Fprintf(f, "\tEntry 1:\t%s", fetchStr(sim, PreMemBuff[1]))
 
 	fmt.Fprintln(f, "\nPost-ALU Queue:")
-	fmt.Fprintf(f, "\tEntry 0:\t%s\n", fetchStr(postMemBuff[1]))
+	fmt.Fprintf(f, "\tEntry 0:\t%s\n", fetchStr(sim, postMemBuff[1]))
 
 	// print current register
 	fmt.Fprint(f, "\nRegisters:\n")

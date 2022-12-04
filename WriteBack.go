@@ -1,7 +1,5 @@
 package main
 
-import "fmt"
-
 func writeBack() {
 	// postALUBuff = [2]int{-1, -1} first number is value, second is instr index
 	aluVal := postALUBuff[0]
@@ -15,5 +13,5 @@ func writeBack() {
 
 	registerMap[uint8(memIndex)] = memVal
 
-	fmt.Println(registerMap)
+	//fmt.Println(registerMap)
 }
