@@ -16,16 +16,19 @@ func issue(instrArray []Instruction) {
 			case "IM":
 				for j := 0; j < 2; j++ {
 					if PreALUBuff[j] == -1 { // if empty, fill it!
-						PreALUBuff[j] = PreIssueBuff[i]
+						PreALUBuff[j] = PreIssueBuff[i] // move to preALU
+						PreIssueBuff[i] = -1            // remove from PreALU
 					}
 				}
 			case "D":
 				for j := 0; j < 2; j++ {
 					if PreMemBuff[j] != -1 { // if empty, fill it!
-						PreMemBuff[j] = PreIssueBuff[i]
+						PreMemBuff[j] = PreIssueBuff[i] // move to PreMEM
+						PreIssueBuff[i] = -1            // remove from preIssue
 					}
 				}
 			}
+			break // break out of loop after 1 entry filled so entire buffer isn't filled
 		}
 	}
 }
