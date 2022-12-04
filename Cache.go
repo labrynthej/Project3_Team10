@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"strconv"
 )
 
 type Block struct {
@@ -62,16 +61,16 @@ func writeToCache(count int) {
 
 }
 
-func readFromCache(count int) (uint64, uint64) {
-	//index := (count - 96) / 4
+func readFromCache(count int) (int, int) {
+	index := (count - 96) / 4
 
 	//setNum := (count & setMask) >> 3
 	//tag := (count & tagMask) >> 5
 
-	lineValue1, _ := strconv.ParseUint(memoryMap[count], 2, 32)
-	lineValue2, _ := strconv.ParseUint(memoryMap[count], 2, 32)
+	// lineValue1, _ := strconv.ParseUint(memoryMap[count], 2, 32)
+	// lineValue2, _ := strconv.ParseUint(memoryMap[count], 2, 32)
 
-	return lineValue1, lineValue2
+	return index, index + 1
 }
 
 func cacheStr(idx1 int, idx2 int) string {
