@@ -68,7 +68,8 @@ func main() {
 	fmt.Println("infile:", *cmdInFile)
 	fmt.Println("outfile: ", *cmdOutFile+"_dis.txt")
 	fmt.Println("simulation outfile: ", *cmdOutFile+"_sim.txt")
-	fmt.Println(memoryMap)
+	toWriteBack()
+	memToWriteBack()
 }
 
 // reads the file and loads each line into the rawInstruction part of the Instruction

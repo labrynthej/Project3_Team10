@@ -56,3 +56,5 @@ func writeToCache(instArray []Instruction, count int) {
 	CacheSets[setNum][dataWord].word2 = address2
 
 }
+
+func readFromCache(count int) {}
