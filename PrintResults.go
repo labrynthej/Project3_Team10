@@ -216,10 +216,24 @@ func printPipeline(sim []Instruction, file string) {
 	fmt.Fprintln(f, "Cycle:")
 
 	fmt.Fprintln(f, "\nPre-Issue Buffer:")
-	fmt.Fprintf(f, "\tEntry 0:\t%s\n", instructionString(sim[0]))
-	fmt.Fprintf(f, "\tEntry 1:\n")
-	fmt.Fprintf(f, "\tEntry 2:\n")
-	fmt.Fprintf(f, "\tEntry 3:\n")
+	fmt.Fprintf(f, "\tEntry 0:\t%s\n", fetchStr(PreIssueBuff[0]))
+	fmt.Fprintf(f, "\tEntry 1:\t%s\n", fetchStr(PreIssueBuff[1]))
+	fmt.Fprintf(f, "\tEntry 2:\t%s\n", fetchStr(PreIssueBuff[2]))
+	fmt.Fprintf(f, "\tEntry 3:\t%s", fetchStr(PreIssueBuff[3]))
+
+	fmt.Fprintln(f, "\nPre-ALU Queue:")
+	fmt.Fprintf(f, "\tEntry 0:\t%s\n", fetchStr(PreALUBuff[0]))
+	fmt.Fprintf(f, "\tEntry 1:\t%s", fetchStr(PreALUBuff[1]))
+
+	fmt.Fprintln(f, "\nPost-ALU Queue:")
+	fmt.Fprintf(f, "\tEntry 0:\t%s", fetchStr(postALUBuff[1]))
+
+	fmt.Fprintln(f, "\nPre-MEM Queue:")
+	fmt.Fprintf(f, "\tEntry 0:\t%s\n", fetchStr(PreMemBuff[0]))
+	fmt.Fprintf(f, "\tEntry 1:\t%s", fetchStr(PreMemBuff[1]))
+
+	fmt.Fprintln(f, "\nPost-ALU Queue:")
+	fmt.Fprintf(f, "\tEntry 0:\t%s\n", fetchStr(postMemBuff[1]))
 
 	// print current register
 	fmt.Fprint(f, "\nRegisters:\n")
@@ -227,4 +241,49 @@ func printPipeline(sim []Instruction, file string) {
 	fmt.Fprintf(f, "\nr08:\t%s", mapToString(registerMap, 16))
 	fmt.Fprintf(f, "\nr16:\t%s", mapToString(registerMap, 24))
 	fmt.Fprintf(f, "\nr24:\t%s\n", mapToString(registerMap, 32))
+
+	fmt.Fprintln(f, "\nCache")
+	fmt.Fprintf(f, "Set 0: LRU=%d\n", LRUbits[0])
+	fmt.Fprintf(f, "\tEntry 0:%s\n", cacheStr(0, 0))
+	fmt.Fprintf(f, "\tEntry 1:%s\n", cacheStr(0, 1))
+	fmt.Fprintf(f, "Set 0: LRU=%d\n", LRUbits[1])
+	fmt.Fprintf(f, "\tEntry 0:%s\n", cacheStr(1, 0))
+	fmt.Fprintf(f, "\tEntry 1:%s\n", cacheStr(1, 1))
+	fmt.Fprintf(f, "Set 0: LRU=%d\n", LRUbits[2])
+	fmt.Fprintf(f, "\tEntry 0:%s\n", cacheStr(2, 0))
+	fmt.Fprintf(f, "\tEntry 1:%s\n", cacheStr(2, 1))
+	fmt.Fprintf(f, "Set 0: LRU=%d\n", LRUbits[3])
+	fmt.Fprintf(f, "\tEntry 0:%s\n", cacheStr(3, 0))
+	fmt.Fprintf(f, "\tEntry 1:%s\n", cacheStr(3, 1))
+
+	// print data
+	fmt.Fprintf(f, "\nData:")
+	var keys []int
+	max := 0
+	for i, _ := range dataSlice {
+		keys = append(keys, i)
+	}
+	sort.Ints(keys) // sort data index using a temp array
+	for i, _ := range keys {
+		max = i
+	}
+	// iterate through the index  array and use to print data
+	if keys != nil {
+		for key := keys[0]; key <= keys[max]; key = key + 4 {
+			if (key-keys[0])%32 == 0 {
+				fmt.Fprintf(f, "\n%d:\t", key)
+				for i := 0; i < 32; i = i + 4 {
+					if dataSlice[key+i] != 0 {
+						fmt.Fprintf(f, "%d\t", dataSlice[key+i])
+					} else {
+						dataSlice[key+i] = 0
+						fmt.Fprintf(f, "%d\t", dataSlice[key+i])
+					}
+				}
+			}
+
+		}
+	}
+
+	fmt.Fprintf(f, "\n")
 }

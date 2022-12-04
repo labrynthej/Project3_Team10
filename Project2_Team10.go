@@ -58,7 +58,7 @@ func main() {
 	//create a new array of instructions based on the data read from the inFile
 	var instructionsArray []Instruction = readFile(inFile)
 	initializeInstructions(instructionsArray) //initialize the instructions
-	writeToCache(instructionsArray, 96)
+	writeToCache(96)
 
 	printResults(instructionsArray, *cmdOutFile+"_dis.txt")
 
@@ -66,12 +66,13 @@ func main() {
 	simInstructions(instructionsArray, *cmdOutFile+"_sim.txt")
 
 	// begin pipeline simulation
-	runSim(instructionsArray)
+	controlUnit(instructionsArray)
 	printPipeline(instructionsArray, *cmdOutFile+"_test.txt")
 
 	fmt.Println("infile:", *cmdInFile)
 	fmt.Println("outfile: ", *cmdOutFile+"_dis.txt")
 	fmt.Println("simulation outfile: ", *cmdOutFile+"_sim.txt")
+	fmt.Println(memoryMap)
 
 }
 
@@ -390,8 +391,10 @@ func mapToString(arr map[uint8]int, highValue uint8) string {
 	return str
 }
 
-func runSim(instrArray []Instruction) {
-	runALU()
-	runMem()
+func controlUnit(instrArray []Instruction) {
+	count := 96
+	runALU(instrArray)
+	runMem(instrArray)
 	writeBack()
+	count = count + 4
 }

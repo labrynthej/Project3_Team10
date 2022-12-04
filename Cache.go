@@ -1,5 +1,10 @@
 package main
 
+import (
+	"fmt"
+	"strconv"
+)
+
 type Block struct {
 	valid int
 	dirty int
@@ -30,7 +35,7 @@ var JustMissedList []int // (later)
 var tagMask = 134217727 << 5
 var setMask = 24
 
-func writeToCache(instArray []Instruction, count int) {
+func writeToCache(count int) {
 	// index := (count - 96) / 4
 	var dataWord int
 	var address1, address2 int
@@ -57,4 +62,24 @@ func writeToCache(instArray []Instruction, count int) {
 
 }
 
-func readFromCache(count int) {}
+func readFromCache(count int) (uint64, uint64) {
+	//index := (count - 96) / 4
+
+	//setNum := (count & setMask) >> 3
+	//tag := (count & tagMask) >> 5
+
+	lineValue1, _ := strconv.ParseUint(memoryMap[count], 2, 32)
+	lineValue2, _ := strconv.ParseUint(memoryMap[count], 2, 32)
+
+	return lineValue1, lineValue2
+}
+
+func cacheStr(idx1 int, idx2 int) string {
+	address1 := CacheSets[idx1][idx2].word1
+	address2 := CacheSets[idx1][idx2].word2
+
+	s := fmt.Sprintf("[(%d, %d, %d)<%s,%s>]", CacheSets[idx1][idx2].valid, CacheSets[idx1][idx2].dirty,
+		CacheSets[idx1][idx2].tag, memoryMap[address1], memoryMap[address2])
+
+	return s
+}

@@ -2,6 +2,6 @@ package main
 
 var postMemBuff = [2]int{-1, -1} //first number is value, second is instr index
 
-func runMem() {
+func runMem(instrArray []Instruction) {
 	postMemBuff = [2]int{1100, 9}
 }
