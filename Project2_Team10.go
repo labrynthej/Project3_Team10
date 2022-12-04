@@ -65,11 +65,13 @@ func main() {
 	// begin simulation
 	simInstructions(instructionsArray, *cmdOutFile+"_sim.txt")
 
+	// begin pipeline simulation
+	runSim(instructionsArray)
+
 	fmt.Println("infile:", *cmdInFile)
 	fmt.Println("outfile: ", *cmdOutFile+"_dis.txt")
 	fmt.Println("simulation outfile: ", *cmdOutFile+"_sim.txt")
-	toWriteBack()
-	memToWriteBack()
+
 }
 
 // reads the file and loads each line into the rawInstruction part of the Instruction
@@ -385,4 +387,10 @@ func mapToString(arr map[uint8]int, highValue uint8) string {
 		str = str + strconv.Itoa(arr[i]) + "\t"
 	}
 	return str
+}
+
+func runSim(instrArray []Instruction) {
+	runALU()
+	runMem()
+	writeBack()
 }
