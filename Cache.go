@@ -25,6 +25,7 @@ var Set = [2]Block{
 }
 var CacheSets [4][2]Block
 var LRUbits = [4]int{0, 0, 0, 0}
+var JustMissedList []int // (later)
 
 var tagMask = 134217727 << 5
 var setMask = 24
@@ -47,7 +48,7 @@ func writeToCache(instArray []Instruction, count int) {
 
 	setNum := (address1 & setMask) >> 3
 	tag := (address1 & tagMask) >> 5
-	LRUbits[setNum] = dataWord ^ 1
+	LRUbits[setNum] = LRUbits[setNum] ^ 1
 
 	CacheSets[setNum][dataWord].valid = 0
 	CacheSets[setNum][dataWord].tag = tag
