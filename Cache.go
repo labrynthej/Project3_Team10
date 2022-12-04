@@ -62,6 +62,7 @@ func writeToCache(count int) {
 }
 
 func readFromCache(count int) (int, int) {
+	writeToCache(count)
 	index := (count - 96) / 4
 
 	//setNum := (count & setMask) >> 3

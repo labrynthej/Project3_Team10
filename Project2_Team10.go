@@ -58,7 +58,6 @@ func main() {
 	//create a new array of instructions based on the data read from the inFile
 	var instructionsArray []Instruction = readFile(inFile)
 	initializeInstructions(instructionsArray) //initialize the instructions
-	writeToCache(96)
 
 	printResults(instructionsArray, *cmdOutFile+"_dis.txt")
 
