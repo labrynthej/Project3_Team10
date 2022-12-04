@@ -59,7 +59,7 @@ func printResults(instrArray []Instruction, fileName string) {
 					_, _ = file.WriteString(string(instrArray[i].rawInstruction[j]))
 				}
 			}
-			_, _ = file.WriteString(" " + strconv.Itoa(instrArray[i].programCnt) + " " + instrArray[i].op + " R" +
+			_, _ = file.WriteString(" " + strconv.Itoa(instrArray[i].programCnt) + " " + strconv.Itoa(int(instrArray[i].op2)) + " R" +
 				strconv.Itoa(int(instrArray[i].rt)) + ", [R" + strconv.Itoa(int(instrArray[i].rn)) + ", #" +
 				strconv.Itoa(int(instrArray[i].address)) + "]") // print pc, type, Rt, Rn, address
 			break

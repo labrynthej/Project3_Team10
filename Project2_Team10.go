@@ -28,6 +28,14 @@ type Instruction struct {
 	op2               uint8
 	cycle             int
 	programCnt        int // program counter
+	data              int32
+	destReg           int // this is rd
+	src1Reg           int //this is rn
+	src2Reg           int // this is rm
+	arg1Str           string
+	arg2Str           string
+	arg3Str           string
+	isMemOp           bool
 }
 
 // global data slice
@@ -35,6 +43,9 @@ var dataSlice = make(map[int]int)
 
 // global register map
 var registerMap = make(map[uint8]int)
+
+// global memory map
+var memoryMap = make(map[int]string)
 
 func main() {
 	//flag.String gets pointers to command line arguments
@@ -56,6 +67,7 @@ func main() {
 	fmt.Println("infile:", *cmdInFile)
 	fmt.Println("outfile: ", *cmdOutFile+"_dis.txt")
 	fmt.Println("simulation outfile: ", *cmdOutFile+"_sim.txt")
+	fmt.Println(memoryMap)
 }
 
 // reads the file and loads each line into the rawInstruction part of the Instruction
@@ -75,6 +87,7 @@ func readFile(fileBeingRead io.Reader) (inputParsed []Instruction) {
 
 		// set the current memory value then increment by 4
 		inputParsed[index].programCnt = 96 + (4 * index)
+		memoryMap[inputParsed[index].programCnt] = inputParsed[index].rawInstruction
 		index++
 
 	}
@@ -100,7 +113,6 @@ func initializeInstructions(instArray []Instruction) {
 			// assign lineValue and 11 bit opcode for setting the instruction
 			instArray[i].lineValue = lineValue
 			instArray[i].opcode = lineValue >> 21
-
 			setInstructionType(instArray, i)
 
 			// set values for instruction type "R" | opcode | Rm | Shamt | Rn | Rd |
@@ -152,6 +164,7 @@ func initializeInstructions(instArray []Instruction) {
 				break
 			}
 		}
+
 	}
 }
 
