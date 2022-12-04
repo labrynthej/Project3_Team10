@@ -390,11 +390,3 @@ func mapToString(arr map[uint8]int, highValue uint8) string {
 	}
 	return str
 }
-
-func controlUnit(instrArray []Instruction) {
-	count := 96
-	runALU(instrArray)
-	runMem(instrArray)
-	writeBack()
-	count = count + 4
-}
