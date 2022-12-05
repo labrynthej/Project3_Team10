@@ -13,16 +13,7 @@ func runMem(instrArray []Instruction) {
 		case "STUR":
 			dataSlice[registerMap[currentInstr.rn]+int(currentInstr.address)*4] = registerMap[currentInstr.rt]
 			break
-		// IM format instructions
-		case "MOVZ":
-			registerMap[currentInstr.rd] = 0
-			registerMap[currentInstr.rd] = int(currentInstr.field<<(currentInstr.shamt*16)) &
-				(0xFFFFFFFF << (currentInstr.shamt * 16))
-			break
-		case "MOVK":
-			registerMap[currentInstr.rd] = registerMap[currentInstr.rd] +
-				int(currentInstr.field<<(currentInstr.shamt*16))
-			break
+			// IM format instructions might go here too
 		}
 		PreMemBuff[0] = PreMemBuff[1]
 		PreMemBuff[1] = -1
