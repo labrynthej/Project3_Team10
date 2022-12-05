@@ -5,14 +5,15 @@ import (
 	"os"
 )
 
+var count = 96
+
 func controlUnit(instrArray []Instruction) {
 	f, fileErr := os.Create("test.txt")
 	if fileErr != nil {
 		fmt.Println(fileErr)
 	}
-	count := 96
 	cycle := 1
-	for i, _ := range instrArray {
+	for i := range instrArray {
 		cycle = i
 		issue(instrArray)
 		fetchInstr(instrArray, count)
