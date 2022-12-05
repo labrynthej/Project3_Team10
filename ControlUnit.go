@@ -12,9 +12,8 @@ func controlUnit(instrArray []Instruction) {
 	if fileErr != nil {
 		fmt.Println(fileErr)
 	}
-
 	cycle := 1
-	for i, _ := range instrArray {
+	for i := range instrArray {
 		cycle = i
 		fetchInstr(instrArray, count)
 		issue(instrArray)
