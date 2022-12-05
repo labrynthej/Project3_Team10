@@ -8,13 +8,14 @@ func runMem(instrArray []Instruction) {
 		switch currentInstr.op {
 		// D format instructions
 		case "LDUR":
-			registerMap[currentInstr.rt] = dataSlice[registerMap[currentInstr.rn]+int(currentInstr.address)*4]
+			postMemBuff[0] = dataSlice[registerMap[currentInstr.rn]+int(currentInstr.address)*4]
 			break
 		case "STUR":
 			dataSlice[registerMap[currentInstr.rn]+int(currentInstr.address)*4] = registerMap[currentInstr.rt]
 			break
 			// IM format instructions might go here too
 		}
+		postMemBuff[1] = PreMemBuff[0]
 		PreMemBuff[0] = PreMemBuff[1]
 		PreMemBuff[1] = -1
 	}
