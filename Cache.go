@@ -74,9 +74,8 @@ func readFromCache(count int) (int, int) {
 	index := 0
 	//tag := (address1 & tagMask) >> 5
 
-	if CacheSets[setNum][LRUbits[setNum]^1].word1 != count {
+	if CacheSets[setNum][LRUbits[setNum]].word1 != count {
 		writeToCache(count)
-		return -1, -1
 	}
 
 	index = (count - 96) / 4
