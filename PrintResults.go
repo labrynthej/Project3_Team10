@@ -213,7 +213,7 @@ func printPipeline(sim []Instruction, f *os.File) {
 	//}
 
 	fmt.Fprintln(f, "--------------------")
-	fmt.Fprintln(f, "Cycle:")
+	fmt.Fprintf(f, "Cycle: %d")
 
 	fmt.Fprintln(f, "\nPre-Issue Buffer:")
 	fmt.Fprintf(f, "\tEntry 0:\t%s\n", fetchStr(sim, PreIssueBuff[0]))
@@ -246,13 +246,13 @@ func printPipeline(sim []Instruction, f *os.File) {
 	fmt.Fprintf(f, "Set 0: LRU=%d\n", LRUbits[0])
 	fmt.Fprintf(f, "\tEntry 0:%s\n", cacheStr(0, 0))
 	fmt.Fprintf(f, "\tEntry 1:%s\n", cacheStr(0, 1))
-	fmt.Fprintf(f, "Set 0: LRU=%d\n", LRUbits[1])
+	fmt.Fprintf(f, "Set 1: LRU=%d\n", LRUbits[1])
 	fmt.Fprintf(f, "\tEntry 0:%s\n", cacheStr(1, 0))
 	fmt.Fprintf(f, "\tEntry 1:%s\n", cacheStr(1, 1))
-	fmt.Fprintf(f, "Set 0: LRU=%d\n", LRUbits[2])
+	fmt.Fprintf(f, "Set 2: LRU=%d\n", LRUbits[2])
 	fmt.Fprintf(f, "\tEntry 0:%s\n", cacheStr(2, 0))
 	fmt.Fprintf(f, "\tEntry 1:%s\n", cacheStr(2, 1))
-	fmt.Fprintf(f, "Set 0: LRU=%d\n", LRUbits[3])
+	fmt.Fprintf(f, "Set 3: LRU=%d\n", LRUbits[3])
 	fmt.Fprintf(f, "\tEntry 0:%s\n", cacheStr(3, 0))
 	fmt.Fprintf(f, "\tEntry 1:%s\n", cacheStr(3, 1))
 

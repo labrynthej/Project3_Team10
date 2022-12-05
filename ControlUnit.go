@@ -12,17 +12,17 @@ func controlUnit(instrArray []Instruction) {
 	if fileErr != nil {
 		fmt.Println(fileErr)
 	}
-	cycle := 1
+	cycle := 0
 	for i := range instrArray {
-		cycle = i
-		fetchInstr(instrArray, count)
+		cycle = i + 1
 		issue(instrArray)
+		fetchInstr(instrArray, count)
 		runALU(instrArray)
 		runMem(instrArray)
 		writeBack() // last instruction
 		printPipeline(instrArray, f)
 
-		count = count + (i * 8)
+		count = count + 8
 	}
 	cycle++
 }

@@ -62,7 +62,7 @@ func main() {
 	printResults(instructionsArray, *cmdOutFile+"_dis.txt")
 
 	// begin simulation
-	simInstructions(instructionsArray, *cmdOutFile+"_sim.txt")
+	//simInstructions(instructionsArray, *cmdOutFile+"_sim.txt")
 
 	// begin pipeline simulation
 	controlUnit(instructionsArray)
@@ -70,7 +70,7 @@ func main() {
 
 	fmt.Println("infile:", *cmdInFile)
 	fmt.Println("outfile: ", *cmdOutFile+"_dis.txt")
-	fmt.Println("simulation outfile: ", *cmdOutFile+"_sim.txt")
+	//fmt.Println("simulation outfile: ", *cmdOutFile+"_sim.txt")
 	fmt.Println(memoryMap)
 
 }
