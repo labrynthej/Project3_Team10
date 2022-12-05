@@ -60,7 +60,7 @@ func writeToCache(count int) {
 		dataWord = 1
 	}
 	LRUbits[setNum] = LRUbits[setNum] ^ 1
-	CacheSets[setNum][dataWord].valid = 0
+	CacheSets[setNum][dataWord].valid = 1
 	CacheSets[setNum][dataWord].tag = tag
 	CacheSets[setNum][dataWord].word1 = address1
 	CacheSets[setNum][dataWord].word2 = address2
@@ -69,15 +69,16 @@ func writeToCache(count int) {
 
 func readFromCache(count int) (int, int) {
 
-	//setNum := (count & setMask) >> 3
+	setNum := (count & setMask) >> 3
 	//tag := (count & tagMask) >> 5
 	index := 0
 	//tag := (address1 & tagMask) >> 5
-	//
-	//if CacheSets[setNum][LRUbits[setNum]].word1 != count {
-	//	writeToCache(count)
-	//}
-	writeToCache(count)
+
+	if CacheSets[setNum][LRUbits[setNum]].word1 != count {
+		writeToCache(count)
+		//return -1, -1
+	}
+	// writeToCache(count)
 	index = (count - 96) / 4
 
 	//setNum := (count & setMask) >> 3
