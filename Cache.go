@@ -59,7 +59,7 @@ func writeToCache(count int) {
 	if LRUbits[setNum] == 1 {
 		dataWord = 1
 	}
-	LRUbits[setNum] = LRUbits[setNum] ^ 1
+	LRUbits[setNum] = LRUbits[setNum] ^ 0
 	CacheSets[setNum][dataWord].valid = 1
 	CacheSets[setNum][dataWord].tag = tag
 	CacheSets[setNum][dataWord].word1 = address1
@@ -67,18 +67,17 @@ func writeToCache(count int) {
 
 }
 
-func readFromCache(count int) (int, int) {
+func readFromCache(count int) int {
 
-	setNum := (count & setMask) >> 3
+	//setNum := (count & setMask) >> 3
 	//tag := (count & tagMask) >> 5
 	index := 0
 	//tag := (address1 & tagMask) >> 5
 
-	if CacheSets[setNum][LRUbits[setNum]].word1 != count {
-		writeToCache(count)
-		//return -1, -1
-	}
-	// writeToCache(count)
+	//if CacheSets[setNum][LRUbits[setNum]].tag != tag {
+	//	writeToCache(count)
+	//	return -1
+	writeToCache(count)
 	index = (count - 96) / 4
 
 	//setNum := (count & setMask) >> 3
@@ -87,7 +86,7 @@ func readFromCache(count int) (int, int) {
 	// lineValue1, _ := strconv.ParseUint(memoryMap[count], 2, 32)
 	// lineValue2, _ := strconv.ParseUint(memoryMap[count], 2, 32)
 
-	return index, index + 1
+	return index
 }
 
 func cacheStr(idx1 int, idx2 int) string {

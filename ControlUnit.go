@@ -15,14 +15,14 @@ func controlUnit(instrArray []Instruction) {
 	cycle := 0
 	for i := range instrArray {
 		cycle = i + 1
-		issue(instrArray)
-		fetchInstr(instrArray, count)
+		writeBack() // last instruction
 		runALU(instrArray)
 		runMem(instrArray)
-		writeBack() // last instruction
-		printPipeline(instrArray, f)
+		issue(instrArray)
+		fetchInstr(instrArray, count)
 
-		count = count + 8
+		printPipeline(instrArray, f, cycle)
+
+		count = count + 4
 	}
-	cycle++
 }

@@ -1,15 +1,14 @@
 package main
 
-import "fmt"
-
 var PreMemBuff = [2]int{-1, -1} // two instruction indexes
 var PreALUBuff = [2]int{-1, -1} // two instruction indexes
 
 func issue(instrArray []Instruction) {
-	fmt.Println("BEFORE: ")
-	fmt.Println("PreIssue: ", PreIssueBuff)
-	fmt.Println("PreALU: ", PreALUBuff)
-	fmt.Println("")
+	//fmt.Println("BEFORE: ")
+	//fmt.Println("PreIssue: ", PreIssueBuff)
+	//fmt.Println("PreALU: ", PreALUBuff)
+	//fmt.Println("")
+
 	counter := 0 // keep count of number of instructions issued, either 0, 1, or 2
 	for i := 0; i < 4; i++ {
 		if PreIssueBuff[i] != -1 {
@@ -35,7 +34,7 @@ func issue(instrArray []Instruction) {
 				break
 			case "D":
 				for j := 0; j < 2; j++ {
-					if PreMemBuff[j] != -1 { // if empty, fill it!
+					if PreMemBuff[j] == -1 { // if empty, fill it!
 						PreMemBuff[j] = PreIssueBuff[i] // move to PreMEM
 						PreIssueBuff[i] = -1
 						counter++
@@ -54,10 +53,11 @@ func issue(instrArray []Instruction) {
 	if counter == 1 { // if only 1 instruction issued, free up first space in queue
 		PreIssueBuff[0] = -1
 	}
-	fmt.Println("AFTER: ")
-	fmt.Println(counter)
-	fmt.Println("PreIssue: ", PreIssueBuff)
-	fmt.Println("PreALU: ", PreALUBuff)
-	fmt.Println("")
+
+	//fmt.Println("AFTER: ")
+	//fmt.Println(counter)
+	//fmt.Println("PreIssue: ", PreIssueBuff)
+	//fmt.Println("PreALU: ", PreALUBuff)
+	//fmt.Println("")
 
 }

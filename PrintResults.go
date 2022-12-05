@@ -59,7 +59,7 @@ func printResults(instrArray []Instruction, fileName string) {
 					_, _ = file.WriteString(string(instrArray[i].rawInstruction[j]))
 				}
 			}
-			_, _ = file.WriteString(" " + strconv.Itoa(instrArray[i].programCnt) + " " + strconv.Itoa(int(instrArray[i].op2)) + " R" +
+			_, _ = file.WriteString(" " + strconv.Itoa(instrArray[i].programCnt) + " " + instrArray[i].op + " R" +
 				strconv.Itoa(int(instrArray[i].rt)) + ", [R" + strconv.Itoa(int(instrArray[i].rn)) + ", #" +
 				strconv.Itoa(int(instrArray[i].address)) + "]") // print pc, type, Rt, Rn, address
 			break
@@ -206,14 +206,14 @@ func printSimulation(sim Instruction, f *os.File) {
 
 }
 
-func printPipeline(sim []Instruction, f *os.File) {
+func printPipeline(sim []Instruction, f *os.File, count int) {
 	//f, fileErr := os.Create(file)
 	//if fileErr != nil {
 	//	fmt.Println(fileErr)
 	//}
 
 	fmt.Fprintln(f, "--------------------")
-	fmt.Fprintf(f, "Cycle: %d")
+	fmt.Fprintf(f, "Cycle: %d\n", count)
 
 	fmt.Fprintln(f, "\nPre-Issue Buffer:")
 	fmt.Fprintf(f, "\tEntry 0:\t%s\n", fetchStr(sim, PreIssueBuff[0]))
@@ -232,7 +232,7 @@ func printPipeline(sim []Instruction, f *os.File) {
 	fmt.Fprintf(f, "\tEntry 0:\t%s\n", fetchStr(sim, PreMemBuff[0]))
 	fmt.Fprintf(f, "\tEntry 1:\t%s", fetchStr(sim, PreMemBuff[1]))
 
-	fmt.Fprintln(f, "\nPost-ALU Queue:")
+	fmt.Fprintln(f, "\nPost-MEM Queue:")
 	fmt.Fprintf(f, "\tEntry 0:\t%s\n", fetchStr(sim, postMemBuff[1]))
 
 	// print current register

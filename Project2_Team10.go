@@ -71,7 +71,6 @@ func main() {
 	fmt.Println("infile:", *cmdInFile)
 	fmt.Println("outfile: ", *cmdOutFile+"_dis.txt")
 	//fmt.Println("simulation outfile: ", *cmdOutFile+"_sim.txt")
-	fmt.Println(memoryMap)
 
 }
 
