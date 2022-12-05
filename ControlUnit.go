@@ -14,8 +14,8 @@ func controlUnit(instrArray []Instruction) {
 	cycle := 1
 	for i, _ := range instrArray {
 		cycle = i
-		fetchInstr(instrArray, count)
 		issue(instrArray)
+		fetchInstr(instrArray, count)
 		runALU(instrArray)
 		runMem(instrArray)
 		writeBack() // last instruction

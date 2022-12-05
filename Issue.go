@@ -33,7 +33,9 @@ func issue(instrArray []Instruction) {
 					}
 				}
 			}
+
 			break // break out of loop after 1 entry filled so entire buffer isn't filled
 		}
 	}
+
 }
